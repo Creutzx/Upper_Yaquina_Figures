@@ -27,11 +27,26 @@ for layer in layers:
         print layer.dataSource
 # some layers might not support the property "dataSource"
 print '\n' + r'Names of layers'
+#getting an error on line 32: what is the purpose of using the Describe function here?
 for layer in layers:
-    desc = arcpy.Describe(layer)
+    desc = arcpy.Describe(r'\\DEQHQ1\TMDL\TMDL_WR\MidCoast\GIS\Figures\Upper_Yaquina_Maps\or_state_boundary_for_inset.lyr')
     print desc.nameString
 
-
+# get the data frame of the map doc
+df = arcpy.mapping.ListDataFrames(mxd_new)[0]
+# get the watershed layer in map doc
+lyr_wtsd = arcpy.mapping.ListLayers(mxd_new, chr_lyr_name_sel, df)[0]
+# get the watershed boundary and state layers that have the symbology to be used
+    #lyr_sym_wtsd = arcpy.mapping.Layer(chr_lyr_sym_wtsd)
+    #lyr_sym_state = arcpy.mapping.Layer(chr_lyr_sym_state)
+# change the symbology of the watershed boundary in map doc to that of the symbology of the layer file
+    #arcpy.mapping.UpdateLayer(df,lyr_wtsd, lyr_sym_wtsd)
+# reset the map extent to that of the state layer file
+    #df.extent = lyr_sym_state.getExtent()
+# save map doc
+    #mxd_new.save()
+# export map to PNG file
+    #arcpy.mapping.ExportToPNG(mxd_new,chr_png_map_new, resolution=300)
 
 
 
