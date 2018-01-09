@@ -9,7 +9,7 @@ chr_map_doc_new = r'\\DEQHQ1\TMDL\TMDL_WR\MidCoast\GIS\Figures\python\makelocins
 chr_png_map_new = r'\\DEQHQ1\TMDL\TMDL_WR\MidCoast\GIS\Figures\Upper_Yaquina_Maps\Up_Yaq.png'
 chr_lyr_name_sel = r'HUC 10'
 chr_lyr_sym_wtsd = r'\\DEQHQ1\TMDL\TMDL_WR\MidCoast\GIS\Layer\upper_yaquina_official_huc_10.lyr'
-chr_lyr_sym_state = r'\\DEQHQ1\TMDL\TMDL_WR\MidCoast\GIS\Figures\Upper_Yaquina_Maps\or_state_boundary_for_inset.lyr'
+chr_lyr_sym_state = r'\\DEQHQ1\TMDL\TMDL_WR\MidCoast\GIS\Layer\upper_yaquina_official_huc_10.lyr'
 
 # get the base map document
 
@@ -27,15 +27,12 @@ for layer in layers:
         print layer.dataSource
 # some layers might not support the property "dataSource"
 print '\n' + r'Names of layers'
-#getting an error on line 32: what is the purpose of using the Describe function here?
+
 # use the following command to get the layer file and create a layer object in your code
-layerCur = arcpy.mapping.Layer(r'\\DEQHQ1\TMDL\TMDL_WR\MidCoast\GIS\Figures\Upper_Yaquina_Maps\or_state_boundary_for_inset.lyr')
 # then you can get it's properties and maniputale it
+layerCur = arcpy.mapping.Layer(r'\\DEQHQ1\TMDL\TMDL_WR\MidCoast\GIS\Figures\Upper_Yaquina_Maps\or_state_boundary_for_inset.lyr')
 print layerCur.name
 # the describe command only works on objects that are created within arcpy, but you don't have to use it with the layer object
-#desc = arcpy.Describe(r'\\DEQHQ1\TMDL\TMDL_WR\MidCoast\GIS\Figures\Upper_Yaquina_Maps\or_state_boundary_for_inset.lyr')
-#print desc.nameString
-#print desc
 
 for layer in layers:
     desc = arcpy.Describe(r'\\DEQHQ1\TMDL\TMDL_WR\MidCoast\GIS\Figures\Upper_Yaquina_Maps\or_state_boundary_for_inset.lyr')
@@ -48,7 +45,7 @@ lyr_wtsd = arcpy.mapping.ListLayers(mxd_new, chr_lyr_name_sel, df)[0]
 # get the watershed boundary and state layers that have the symbology to be used
 lyr_sym_wtsd = arcpy.mapping.Layer(chr_lyr_sym_wtsd)
 lyr_sym_state = arcpy.mapping.Layer(chr_lyr_sym_state)
-# change the symbology of the watershed boundary in magit p doc to that of the symbology of the layer file
+# change the symbology of the watershed boundary in map doc to that of the symbology of the layer file
 arcpy.mapping.UpdateLayer(df,lyr_wtsd, lyr_sym_wtsd)
 # reset the map extent to that of the state layer file
 df.extent = lyr_sym_state.getExtent()
